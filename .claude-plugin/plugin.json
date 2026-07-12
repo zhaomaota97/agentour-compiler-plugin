@@ -9,5 +9,7 @@
   },
   "keywords": ["agent", "berth", "compiler", "package"],
   "commands": ["./commands/berth-compiler.md"],
-  "skills": ["./skills/berth-compiler"]
+  "skills": ["./skills/berth-compiler"],
+  "agents": ["./agents/brainstorm.md", "./agents/grill-me.md", "./agents/validator.md"]
 }
+
