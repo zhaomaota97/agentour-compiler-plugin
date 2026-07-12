@@ -1,0 +1,13 @@
+{
+  "name": "berth-platform",
+  "owner": "zhaomaota97",
+  "plugins": [
+    {
+      "name": "berth-compiler",
+      "description": "Full-auto Berth compiler — converts any agent into a Berth package, validates, and auto-publishes.",
+      "version": "2.1.0",
+      "source": ".",
+      "entry": "SKILL.md"
+    }
+  ]
+}
