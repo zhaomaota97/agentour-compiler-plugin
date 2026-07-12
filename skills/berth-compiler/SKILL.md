@@ -73,8 +73,8 @@ If multiple routes exist, present them clearly and ask which one to use. Give a 
 Example dialogue:
 ```
 平台当前可用模型路由:
-  - deepseek-v4-pro → ctaigw (推荐: 复杂推理, 128K 上下文)
-  - deepseek-v4-flash → ctaigw (推荐: 轻量任务, 128K 上下文)
+  - deepseek-v4-pro → ctaigw (推荐: 复杂推理, 1M 上下文)
+  - deepseek-v4-flash → ctaigw (推荐: 轻量任务, 1M 上下文)
 
 这个 agent 需要处理[领域]的复杂判断, 推荐使用 deepseek-v4-pro。确认使用这个模型吗?
 ```
