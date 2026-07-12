@@ -1,13 +1,25 @@
 {
   "name": "berth-platform",
-  "owner": "zhaomaota97",
+  "owner": {
+    "name": "zhaomaota97",
+    "email": "jerry.h2oslabs@gmail.com"
+  },
+  "metadata": {
+    "description": "Berth Agent Platform — official compiler plugin and tools"
+  },
   "plugins": [
     {
       "name": "berth-compiler",
+      "source": ".",
       "description": "Full-auto Berth compiler — converts any agent into a Berth package, validates, and auto-publishes.",
       "version": "2.1.0",
-      "source": ".",
-      "entry": "SKILL.md"
+      "author": {
+        "name": "Berth Platform",
+        "email": "jerry.h2oslabs@gmail.com"
+      },
+      "category": "development",
+      "keywords": ["agent", "berth", "compiler", "package"],
+      "strict": true
     }
   ]
 }
