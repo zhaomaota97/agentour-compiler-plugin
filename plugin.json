@@ -1,0 +1,42 @@
+{
+  "name": "berth-compiler",
+  "version": "2.1.0",
+  "description": "Full-auto Berth compiler — converts any agent into a Berth package, validates, and auto-publishes. Includes templates (10), guides (8), industry patterns (3), agents (3), and worked examples.",
+  "author": "Berth Platform",
+  "skills": [
+    {
+      "name": "berth-compiler",
+      "description": "Auto-compile any agent into a Berth package and publish it.",
+      "file": "SKILL.md"
+    }
+  ],
+  "agents": [
+    {
+      "name": "brainstorm",
+      "description": "Explore a domain: workflows, edge cases, industry standards.",
+      "file": "agents/brainstorm.md"
+    },
+    {
+      "name": "grill-me",
+      "description": "5-round design interview to eliminate ambiguity.",
+      "file": "agents/grill-me.md"
+    },
+    {
+      "name": "validator",
+      "description": "Post-generation compliance check — validates structure, UX, tools, smoke, pricing before publish.",
+      "file": "agents/validator.md"
+    }
+  ],
+  "templates": {
+    "agent.ts": "templates/agent.ts",
+    "sandbox.ts": "templates/sandbox.ts",
+    "package.json": "templates/package.json",
+    "berth.json": "templates/berth.json",
+    "instructions.md": "templates/instructions.md",
+    "tool.ts": "templates/tool.ts",
+    "approval-tool.ts": "templates/approval-tool.ts",
+    "smoke.yaml": "templates/smoke.yaml",
+    "README.md": "templates/README.md",
+    "RELEASE.md": "templates/RELEASE.md"
+  }
+}

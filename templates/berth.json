@@ -1,0 +1,18 @@
+{
+  "id": "AGENT_ID",
+  "name": "AGENT_NAME",
+  "version": "0.1.0",
+  "runtime": "eve",
+  "capabilities": ["workflow"],
+  "description": "AGENT_DESCRIPTION",
+  "pricing": { "model": "per_run", "amount_cents": 10 },
+  "secrets": [],
+  "approval_required": [],
+  "entry": {},
+  "examples": ["EXAMPLE_1", "EXAMPLE_2"],
+  "greeting": "GREETING_TEXT",
+  "author": { "name": "AUTHOR_NAME" },
+  "icon": "📦",
+  "tags": ["TAG_1", "TAG_2"],
+  "mcp_servers": []
+}

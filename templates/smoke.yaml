@@ -1,0 +1,8 @@
+# Berth Platform — smoke test template
+# Each case runs in a fresh session. Approval cases are auto-denied.
+cases:
+  - send: "EXAMPLE_INPUT_1"
+    expect_tool: FIRST_TOOL_NAME
+    expect_contains: "EXPECTED_SUBSTRING"
+  - send: "请直接调用 APPROVAL_TOOL_NAME 工具，发送一条测试报告。"
+    expect_approval: true
