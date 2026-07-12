@@ -70,6 +70,7 @@ Example dialogue:
 ```
 
 The chosen model goes into `agent.ts` as `berth("<model-id>")`.
+After confirming, say only "已记录，使用 <model>。现在开始了解你的 Agent。" Then immediately create the spec skeleton and ask ONE question from the question bank.
 
 ---
 
@@ -146,13 +147,21 @@ Always pick the single most important unanswered question. Rough priority order:
 - 仅自己用还是公开上架？
 - 起个中文名？选个 emoji？
 
-### Rules
+### Rules (READ CAREFULLY — these are the most important instructions in this entire document)
 
-- **STRICT: one question per turn.** Never ask two questions in one message.
+- **CRITICAL — ONE QUESTION PER TURN, NO EXCEPTIONS.** 
+  Look at the question bank below. Pick the SINGLE most important unanswered question.
+  Ask ONLY that one question. Do NOT add a second question. Do NOT list options as "1. 2. 3."
+  Do NOT say "请告诉我: 1) xxx 2) xxx 3) xxx". That is asking multiple questions and it is FORBIDDEN.
+  
+  CORRECT: "它服务什么行业？解决什么具体问题？"
+  WRONG: "请告诉我: 1. 它服务什么行业？2. 它替代谁的什么工作？3. 谁会用它？"
+
 - **Update the spec after EVERY answer.** Don't wait — write immediately.
 - **If the answer is vague, follow up ONCE.** "能再具体一点吗？比如……"
 - **Spec lives in the user's project.** They can read it anytime to see progress.
 - **Resumable.** If the user comes back later, read the existing spec and pick up where it left off.
+- **Phase 0 is NOT Phase 1.** After showing model options, move directly to creating the spec and asking the FIRST single question. Don't summarize all rounds upfront.
 
 ---
 
