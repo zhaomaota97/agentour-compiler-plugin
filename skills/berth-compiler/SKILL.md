@@ -77,7 +77,11 @@ The chosen model goes into `agent.ts` as `berth("<model-id>")`.
 
 This is the most important phase. **Ask at least 3-5 rounds of questions** before writing a single line of code. The quality of the agent depends entirely on the quality of this interview.
 
+**CRITICAL — one round at a time**: Ask ONLY the current round's questions. Wait for the user to answer before moving to the next round. NEVER dump multiple rounds at once. Each round should be a separate exchange. If the user gives a short or vague answer, dig deeper within the SAME round before moving on.
+
 ### Round 1: Domain & Role (always ask)
+
+Ask these one at a time, building on the user's answers:
 
 - What industry/domain does this agent operate in?
 - What specific job role does it automate? (e.g., "麦当劳出餐前最后一道核查" not just "餐饮质检")
@@ -86,12 +90,16 @@ This is the most important phase. **Ask at least 3-5 rounds of questions** befor
 
 ### Round 2: Input & Output (always ask)
 
+Ask these one at a time, building on the user's answers:
+
 - What exactly does the user provide? Show me 3 concrete examples.
 - What exactly does the agent produce? Format? Structure? Who reads it?
 - What are the **minimum required inputs** to get a useful result? (This feeds the guardrail)
 - Are there edge cases where the input is incomplete? How should the agent handle that?
 
 ### Round 3: Process & Tools (always ask)
+
+Ask these one at a time, building on the user's answers:
 
 - Walk me through the agent's step-by-step process.
 - Which steps are deterministic (can be coded as tools)?
@@ -100,11 +108,15 @@ This is the most important phase. **Ask at least 3-5 rounds of questions** befor
 
 ### Round 4: Domain Knowledge (ask for complex domains)
 
+Ask these one at a time, building on the user's answers:
+
 - What checklists, SOPs, or rulebooks exist in this domain?
 - What are the most common mistakes humans make? (The agent should catch these)
 - What regulations or standards apply?
 
 ### Round 5: Pricing & Distribution (always ask)
+
+Ask these one at a time, building on the user's answers:
 
 - How much value does this agent create per run? (指导定价)
 - Should it be private (仅自己) or public (提交审核)?
