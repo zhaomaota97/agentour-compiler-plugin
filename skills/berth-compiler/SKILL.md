@@ -45,9 +45,22 @@ packages/<agent-id>/
 
 ---
 
-## Phase 0: Platform Discovery (MANDATORY — run first)
+## Phase -1: Source (MANDATORY — very first question)
 
-Before anything else, probe the running platform for available model routes:
+Before anything else — before platform probing, before the spec — ask exactly ONE question:
+
+**"你已经有现成的 Agent 吗（任何形式：其他框架、脚本、Claude Code agent、半成品都可以）？还是想从零开始做一个新的？"**
+
+Do NOT probe models yet. Do NOT create the spec yet. Just ask this one question and wait.
+
+- **如果用户有现成的 Agent**: 让他们描述或粘贴/指向代码。阅读现有代码，提取角色、输入输出、流程。然后进入 Phase 0，用提取的信息预填 spec。
+- **如果用户从零开始**: 进入 Phase 0。
+
+---
+
+## Phase 0: Platform Discovery (MANDATORY — run after Phase -1)
+
+Probe the running platform for available model routes:
 
 ### 0.1 Query platform models
 
