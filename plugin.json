@@ -1,8 +1,8 @@
 {
   "name": "berth-compiler",
   "displayName": "Berth Compiler",
-  "version": "2.1.0",
-  "description": "Full-auto Berth compiler — converts any agent into a Berth package, validates, and auto-publishes. Includes templates (10), guides (8), industry patterns (3), agents (3), and worked examples.",
+  "version": "2.2.0",
+  "description": "Full-auto Berth compiler with fixed local/competition platforms, token validation, one-question interviews, multi-Agent reconstruction, fidelity verification, and private/public upload.",
   "author": {
     "name": "Berth Platform",
     "email": "jerry.h2oslabs@gmail.com"
