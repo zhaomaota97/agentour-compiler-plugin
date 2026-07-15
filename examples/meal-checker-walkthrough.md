@@ -19,7 +19,7 @@
 
 ```
 packages/mcd-meal-checker/
-├── berth.json
+├── agentour.json
 │   └── id: mcd-meal-checker, name: 麦当劳出餐核查员, pricing: 10 积分
 ├── tests/smoke.yaml
 └── payload/agent/
@@ -47,11 +47,11 @@ pnpm install --lockfile-only
 
 ```bash
 # 快速验证静态 gate
-core/.venv/bin/python -m berthcore publish packages/mcd-meal-checker --skip-dynamic
+core/.venv/bin/python -m agentourcore publish packages/mcd-meal-checker --skip-dynamic
 # ✅ structure, manifest, secrets, approval_declared, deps_locked, smoke_spec
 
 # 全量（含 build + 冒烟）
-core/.venv/bin/python -m berthcore publish packages/mcd-meal-checker
+core/.venv/bin/python -m agentourcore publish packages/mcd-meal-checker
 # ✅ 全部 10 道 gate 通过
 ```
 

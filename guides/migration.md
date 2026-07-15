@@ -1,6 +1,6 @@
 # Agent 迁移指南
 
-## 从任何框架迁移到 Berth
+## 从任何框架迁移到 Agentour
 
 无论你的 agent 是 Claude Code、LangChain、自研框架还是 Python 脚本，迁移流程一致：
 
@@ -18,7 +18,7 @@
 - 离线/降级分支（无密钥时的兜底方案）
 - 加密/解密逻辑（密钥管理由平台负责）
 
-### Step 2: 提取到 Berth 结构
+### Step 2: 提取到 Agentour 结构
 
 | 原项目中的... | 迁移到 |
 |---|---|
@@ -26,20 +26,20 @@
 | 工具函数 | `tools/<name>.ts` |
 | 业务规则清单、SOP | `skills/<name>.md` |
 | 对外操作（发送/提交/支付） | `tools/<name>.ts` + `approval: always()` |
-| 环境变量/密钥 | `berth.json` 的 `secrets` 数组 |
+| 环境变量/密钥 | `agentour.json` 的 `secrets` 数组 |
 
 ### Step 3: 适配平台规范
 
 - 模型调用: 用 `@ai-sdk/deepseek` + 平台端点（见 `templates/agent.ts`）
 - 工具定义: 用 Zod schema + 确定性逻辑
-- 副作用: 加 `approval: always()` + 在 berth.json 声明
+- 副作用: 加 `approval: always()` + 在 agentour.json 声明
 - 输入/输出: 短输入（订单号/ID），Markdown 表格输出
 
 ### Step 4: 验证与发布
 
 ```bash
 pnpm install --lockfile-only
-core/.venv/bin/python -m berthcore publish packages/<id>
+core/.venv/bin/python -m agentourcore publish packages/<id>
 ```
 
 按 gate 报告修复，直到全绿。

@@ -1,4 +1,4 @@
-// Berth Platform — approval tool template (side-effect actions)
+// Agentour Platform — approval tool template (side-effect actions)
 // Use this for tools that send reports, create tickets, dispatch orders, etc.
 import { defineTool } from "eve/tools";
 import { always } from "eve/tools/approval";

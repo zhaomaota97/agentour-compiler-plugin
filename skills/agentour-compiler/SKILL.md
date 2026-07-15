@@ -1,10 +1,10 @@
 ---
 user-invocable: true
-name: berth-compiler
-description: Fully automatic Berth Agent compiler. Selects local or competition platform, validates the developer token, discovers models, then invents a new Agent or reconstructs existing Agent projects through strict one-question-per-turn brainstorm and grill-me interviews, fidelity verification, validation, and private/public upload.
+name: agentour-compiler
+description: Fully automatic Agentour Agent compiler. Selects local or competition platform, validates the developer token, discovers models, then invents a new Agent or reconstructs existing Agent projects through strict one-question-per-turn brainstorm and grill-me interviews, fidelity verification, validation, and private/public upload.
 ---
 
-# Berth Compiler
+# Agentour Compiler
 
 Run the entire process. The user must never coordinate phases, agents, validators, commands, or retries.
 
@@ -13,7 +13,7 @@ Run the entire process. The user must never coordinate phases, agents, validator
 Before asking the first workflow question, run:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" check-update --auto
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" check-update --auto
 ```
 
 If it reports `updated: true`, stop this run and tell the user to restart Claude Code so the new Plugin is loaded. Never continue the workflow with the old in-memory Plugin. If the network check is temporarily unavailable, warn briefly and continue; if an update is known but automatic installation fails, stop and report the installer error.
@@ -39,7 +39,7 @@ Never ask the user to type or configure a URL.
 
 ## Mandatory sequence
 
-Persist non-secret progress in `.berth/compiler-state.json`. Never persist the token.
+Persist non-secret progress in `.agentour/compiler-state.json`. Never persist the token.
 
 ### 1. Choose platform
 
@@ -49,23 +49,29 @@ The first unresolved message must ask only:
 
 ### 2. Validate developer token
 
-The next message asks only for that platform's `bt_` token and states that it will not be saved.
+First inspect the selected platform's saved credential:
 
 ```bash
-BERTH_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/credential_store.py" status <local|competition>
+```
+
+If a token is stored, validate it silently and do not ask the user. Ask for a token only when none is stored or the platform explicitly returns 401/403. Validate a replacement and store it with `credential_store.py set <platform>`. The script automatically chooses the operating system credential backend.
+
+```bash
+AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
   --platform <local|competition> verify-token
 ```
 
-Use `GET /v1/dev/me`. If invalid, ask only for a corrected token after the user checks the selected platform's console. Never print, save, commit, or report the token.
+Use `GET /v1/dev/me`. If invalid, ask only for a corrected token after the user checks the selected platform's console. Never print, place in command arguments, save in the project, commit, or report the token.
 
 ### 3. Discover models
 
 After successful token validation, fetch the compiler contract and models:
 
 ```bash
-BERTH_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" \
+AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
   --platform <local|competition> contract
-BERTH_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" \
+AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
   --platform <local|competition> models
 ```
 
@@ -89,7 +95,7 @@ If multiple Agents exist, ask only:
 - If A, preserve all source roles, routing, orchestration, tools, and boundaries in one Package.
 - If B, create one Package and fidelity report per Agent.
 
-Create `.berth/conversion-inventory.json`, `.berth/conversion-map.json`, and `.berth/fidelity-report.json`. Record every capability as preserved, adapted, reimplemented, degraded, unsupported, or explicitly authorized removed.
+Create `.agentour/conversion-inventory.json`, `.agentour/conversion-map.json`, and `.agentour/fidelity-report.json`. Record every capability as preserved, adapted, reimplemented, degraded, unsupported, or explicitly authorized removed.
 
 Use the `brainstorm` and `grill-me` agents internally to challenge uncertain business behavior. Do not require the user to invoke them.
 
@@ -101,7 +107,7 @@ Do not generate until the intended workflow is precise. When the original reques
 
 ## Generate Package(s)
 
-Use `templates/` and the relevant guides. Each Package must contain `berth.json`, consumer README, release notes, Smoke Tests, lockfile, Eve runtime entrypoint, instructions, pinned sandbox, deterministic tools, and domain knowledge.
+Use `templates/` and the relevant guides. Each Package must contain `agentour.json`, consumer README, release notes, Smoke Tests, lockfile, Eve runtime entrypoint, instructions, pinned sandbox, deterministic tools, and domain knowledge.
 
 Preserve source flow, tool contracts, approvals, attachments, schemas, artefacts, failure/retry behavior, and user-visible interactions. Every loaded capability needs business-readable `runtime_ui` text. Never expose `load skill`; `waiting_approval` is waiting, not running.
 
@@ -111,11 +117,21 @@ Preserve source flow, tool contracts, approvals, attachments, schemas, artefacts
 - Check Node/pnpm first. Require Node 24 and never compile Node from source.
 - Run `pnpm install --lockfile-only`; do not install project `node_modules` just to create a lock.
 - Run local builds in a Linux temp copy or compatible container, then remove the temp directory.
-- Record contract version, publish jobs, failed Gates, repairs, and results in `.berth/compiler-state.json`, never tokens.
+- Record contract version, publish jobs, failed Gates, repairs, and results in `.agentour/compiler-state.json`, never tokens.
 
 ## Validate and repair automatically
 
 Dispatch `validator`, generate the lockfile, build, run Smoke Tests, source tests, and relevant project tests. Fix failures narrowly and repeat until green or genuinely blocked. Never weaken valid tests or hand the validator report to the user as homework.
+
+Before visibility or formal upload, every Package must pass:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" build-test packages/<agent-id>
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" --platform <local|competition> \
+  validate-package packages/<agent-id>
+```
+
+The first command installs locked dependencies and runs the Eve build in an isolated temporary copy, then removes it. The second runs the platform's exact build and Smoke Gates without publishing or occupying a Registry version. Formal upload must never be the first real execution test.
 
 ## Fidelity requirement
 
@@ -136,7 +152,7 @@ For multiple Packages, first ask whether one setting applies to all or should be
 Revalidate the token immediately before upload. Present one compact summary of platform, IDs, versions, models, visibility, validation, fidelity, and limitations. If upload was requested, proceed; otherwise ask one final upload confirmation.
 
 ```bash
-BERTH_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
   --platform <local|competition> publish-async packages/<agent-id> \
   --visibility <private|public>
 ```
@@ -145,7 +161,7 @@ Follow every job. On Gate failure, fix, bump the version when needed, rebuild fi
 
 ## Required post-publish feedback
 
-After every successful deployment, generate `问题梳理与优化意见清单.md`. It must cover only Berth platform and Compiler Plugin defects or improvement opportunities—not ordinary defects in the generated Agent's domain logic.
+After every successful deployment, generate `问题梳理与优化意见清单.md`. It must cover only Agentour platform and Compiler Plugin defects or improvement opportunities—not ordinary defects in the generated Agent's domain logic.
 
 Read `guides/feedback.md` before writing the report.
 
@@ -154,7 +170,7 @@ Use the entire run as evidence: intent misunderstandings, weak interview questio
 Include run scope, successful publish result, P0/P1/P2 findings, evidence, root cause, and actionable recommendations. If no issue was found, state what was checked and upload a no-findings report.
 
 ```bash
-BERTH_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/berth_api.py" \
+AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
   --platform <local|competition> feedback "问题梳理与优化意见清单.md" \
   --plugin-version "2.3.0" --operation <create|reconstruct> \
   --agent-id <agent-id> --publish-job <job-id>

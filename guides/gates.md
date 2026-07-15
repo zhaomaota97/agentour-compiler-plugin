@@ -4,8 +4,8 @@
 
 | 闸门 | 检查内容 | 常见失败 | 修复方法 |
 |---|---|---|---|
-| structure | 目录结构、必备文件 | 缺少 berth.json / instructions.md / README.md | 补全文件 |
-| manifest | berth.json 字段合法性 | id 格式错、缺少 examples、价格为负 | 检查字段格式 |
+| structure | 目录结构、必备文件 | 缺少 agentour.json / instructions.md / README.md | 补全文件 |
+| manifest | agentour.json 字段合法性 | id 格式错、缺少 examples、价格为负 | 检查字段格式 |
 | secrets | 密钥不进包 | 代码中出现 sk- 前缀或密钥明文 | 删除密钥，改用平台 LLM |
 | approval_declared | 审批声明与实现双向一致 | 声明了但工具未配 `approval: always()` | 工具加 `approval: always()` |
 | deps_locked | pnpm-lock.yaml 存在 | 未运行 `pnpm install --lockfile-only` | payload 内运行生成锁文件 |

@@ -95,4 +95,4 @@ export default defineTool({
 - 工具是确定性代码，不调 LLM
 - 每个工具做一件事
 - 输入/输出用 Zod 类型化
-- 审批工具用 `approval: always()` 并在 berth.json 声明
+- 审批工具用 `approval: always()` 并在 agentour.json 声明

@@ -1,4 +1,4 @@
-// Berth Platform — tool template (data query / computation)
+// Agentour Platform — tool template (data query / computation)
 // Replace TOOL_NAME, TOOL_DESCRIPTION, and the Zod schema + execute logic.
 import { defineTool } from "eve/tools";
 import { z } from "zod";

@@ -1,18 +1,18 @@
 {
-  "name": "berth-compiler",
-  "displayName": "Berth Compiler",
-  "version": "2.4.1",
-  "description": "Full-auto Berth compiler with versioned platform contract, model probes, clean packaging, one-question interviews, fidelity verification, publishing, and required post-run feedback.",
+  "name": "agentour-compiler",
+  "displayName": "Agentour Compiler",
+  "version": "2.5.0",
+  "description": "Full-auto Agentour compiler with versioned platform contract, model probes, clean packaging, one-question interviews, fidelity verification, publishing, and required post-run feedback.",
   "author": {
-    "name": "Berth Platform",
+    "name": "Agentour Platform",
     "email": "jerry.h2oslabs@gmail.com"
   },
-  "keywords": ["agent", "berth", "compiler", "package"],
+  "keywords": ["agent", "agentour", "compiler", "package"],
   "skills": [
     {
-      "name": "berth-compiler",
-      "description": "Auto-compile any agent into a Berth package and publish it.",
-      "file": "skills/berth-compiler/SKILL.md"
+      "name": "agentour-compiler",
+      "description": "Auto-compile any agent into a Agentour package and publish it.",
+      "file": "skills/agentour-compiler/SKILL.md"
     }
   ],
   "agents": [

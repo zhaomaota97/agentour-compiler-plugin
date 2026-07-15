@@ -1,16 +1,16 @@
 import { createDeepSeek } from "@ai-sdk/deepseek";
 import { defineAgent } from "eve";
 
-const berthBase = process.env.BERTH_URL?.replace(/\/$/, "") || "http://berth-build.invalid";
-const berthURL = `${berthBase}/v1/llm`;
+const agentourBase = process.env.AGENTOUR_URL?.replace(/\/$/, "") || "http://agentour-build.invalid";
+const agentourURL = `${agentourBase}/v1/llm`;
 
-const berth = createDeepSeek({
-  baseURL: berthURL,
-  apiKey: process.env.BERTH_RUNTIME_KEY || "build-only-placeholder",
+const agentour = createDeepSeek({
+  baseURL: agentourURL,
+  apiKey: process.env.AGENTOUR_RUNTIME_KEY || "build-only-placeholder",
 });
 
 export default defineAgent({
-  model: berth("MODEL_ID_PLACEHOLDER"),
+  model: agentour("MODEL_ID_PLACEHOLDER"),
   modelContextWindowTokens: 1_000_000,
   system: `你是 AGENT_NAME。AGENT_DESCRIPTION。
 

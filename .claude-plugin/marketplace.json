@@ -1,24 +1,24 @@
 {
-  "name": "berth-platform",
+  "name": "agentour-platform",
   "owner": {
     "name": "zhaomaota97",
     "email": "jerry.h2oslabs@gmail.com"
   },
   "metadata": {
-    "description": "Berth Agent Platform — official compiler plugin and tools"
+    "description": "Agentour Agent Platform — official compiler plugin and tools"
   },
   "plugins": [
     {
-      "name": "berth-compiler",
+      "name": "agentour-compiler",
       "source": ".",
-      "description": "Full-auto Berth compiler with one-question interviews and high-fidelity Agent reconstruction.",
-      "version": "2.4.1",
+      "description": "Full-auto Agentour compiler with one-question interviews and high-fidelity Agent reconstruction.",
+      "version": "2.5.0",
       "author": {
-        "name": "Berth Platform",
+        "name": "Agentour Platform",
         "email": "jerry.h2oslabs@gmail.com"
       },
       "category": "development",
-      "keywords": ["agent", "berth", "compiler", "package"],
+      "keywords": ["agent", "agentour", "compiler", "package"],
       "strict": true
     }
   ]

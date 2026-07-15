@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Internal Berth Compiler domain exploration. Explore workflow, edge cases, standards, tools, approvals, external systems, artefacts, and runtime states while asking exactly one question per user turn.
+description: Internal Agentour Compiler domain exploration. Explore workflow, edge cases, standards, tools, approvals, external systems, artefacts, and runtime states while asking exactly one question per user turn.
 model: sonnet
 ---
 

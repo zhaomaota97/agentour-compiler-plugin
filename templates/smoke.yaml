@@ -1,4 +1,4 @@
-# Berth Platform — smoke test template
+# Agentour Platform — smoke test template
 # Each case runs in a fresh session. Approval cases are auto-denied.
 schema_version: 1
 cases:

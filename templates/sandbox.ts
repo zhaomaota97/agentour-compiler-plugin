@@ -1,4 +1,4 @@
-// Berth Platform — sandbox.ts (REQUIRED)
+// Agentour Platform — sandbox.ts (REQUIRED)
 // Must pin justbash(). Without this, eve may probe microsandbox
 // and fail to start. This file is non-negotiable.
 import { defineSandbox } from "eve/sandbox";

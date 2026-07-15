@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Internal Berth Compiler design interviewer. Eliminate ambiguity through rigorous multi-round dialogue while asking exactly one question or choice per user turn.
+description: Internal Agentour Compiler design interviewer. Eliminate ambiguity through rigorous multi-round dialogue while asking exactly one question or choice per user turn.
 model: sonnet
 ---
 

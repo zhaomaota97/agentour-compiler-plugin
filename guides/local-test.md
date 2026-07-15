@@ -4,13 +4,13 @@
 
 ```bash
 # 只跑静态 gate（结构/清单/密钥/审批声明/依赖/冒烟），跳过 build + smoke
-core/.venv/bin/python -m berthcore publish packages/<agent-id> --skip-dynamic
+core/.venv/bin/python -m agentourcore publish packages/<agent-id> --skip-dynamic
 ```
 
 ## 全量发布
 
 ```bash
-core/.venv/bin/python -m berthcore publish packages/<agent-id>
+core/.venv/bin/python -m agentourcore publish packages/<agent-id>
 ```
 
 ## 常见失败与调试
@@ -37,13 +37,13 @@ pnpm exec eve build
 
 ### secrets 失败
 - 代码中不能出现任何 `sk-` 或 `AKIA` 前缀的字符串
-- LLM 密钥由平台提供，不在 berth.json 的 secrets 里声明
+- LLM 密钥由平台提供，不在 agentour.json 的 secrets 里声明
 
 ## 调试技巧
 
 1. **看 gate 报告**: 每个失败门都给出 file:line 级原因
-2. **看 build log**: `payload/.berth-build.log`
-3. **看 server log**: `~/.berth/eve/<agent-id>/.berth-server.log`
+2. **看 build log**: `payload/.agentour-build.log`
+3. **看 server log**: `~/.agentour/eve/<agent-id>/.agentour-server.log`
 4. **重发即可**: pnpm install 超时/中断后直接重发（平台按时间戳判断是否需重装）
 
 ## 冒烟测试用例写法

@@ -1,17 +1,17 @@
 ---
 name: validator
-description: Post-generation compliance check — validates structure, UX, tools, smoke, pricing before publish. Use after generating a Berth package.
+description: Post-generation compliance check — validates structure, UX, tools, smoke, pricing before publish. Use after generating a Agentour package.
 model: sonnet
 ---
 
 # Validator — Post-Generation Compliance Checker
 
-You validate a generated Berth package against ALL platform requirements BEFORE it's published.
+You validate a generated Agentour package against ALL platform requirements BEFORE it's published.
 
 ## Check phases
 
 ### Phase 1: Structural Completeness
-- [ ] `berth.json` exists with all required fields (id, name, version, runtime, capabilities, description, pricing, examples, author)
+- [ ] `agentour.json` exists with all required fields (id, name, version, runtime, capabilities, description, pricing, examples, author)
 - [ ] `payload/package.json` uses the four required deps (@ai-sdk/deepseek, eve, just-bash, zod)
 - [ ] `payload/agent/agent.ts` exists and uses `createDeepSeek` with platform URL + fetch override
 - [ ] `payload/agent/sandbox/sandbox.ts` exists and pins `justbash()`
@@ -25,7 +25,7 @@ You validate a generated Berth package against ALL platform requirements BEFORE 
 ### Phase 2: UX Compliance
 - [ ] examples are short (no "帮我...", "请...", "核查..." prefixes)
 - [ ] greeting field is set and tells user how to start
-- [ ] instructions.md does NOT contain "对话开始时先自我介绍" (greeting is in berth.json)
+- [ ] instructions.md does NOT contain "对话开始时先自我介绍" (greeting is in agentour.json)
 - [ ] instructions.md tells agent to act immediately, not ask "需要我帮你吗"
 - [ ] instructions.md tells agent to auto-call report tools, not ask "是否上报"
 - [ ] icon is a valid emoji or image path

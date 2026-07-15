@@ -2,7 +2,7 @@
 
 ## 语义化版本
 
-Berth 使用语义化版本号（x.y.z）：
+Agentour 使用语义化版本号（x.y.z）：
 
 - **主版本 (x)**: Agent 核心流程或输出格式有重大变更时升级
 - **次版本 (y)**: 新增工具或功能，或改进现有工具时升级
@@ -10,7 +10,7 @@ Berth 使用语义化版本号（x.y.z）：
 
 ## 版本不可变
 
-一旦发布到 Registry，同一版本号不可覆盖。修改后必须升级版本号再发布。升级只需修改 `berth.json` 中的 `version` 字段。
+一旦发布到 Registry，同一版本号不可覆盖。修改后必须升级版本号再发布。升级只需修改 `agentour.json` 中的 `version` 字段。
 
 ## RELEASE.md 模板
 
@@ -33,6 +33,6 @@ Berth 使用语义化版本号（x.y.z）：
 
 1. 修改代码
 2. 更新 RELEASE.md
-3. 升级 berth.json 的 version
+3. 升级 agentour.json 的 version
 4. 重新生成 pnpm-lock.yaml
-5. 发布 `core/.venv/bin/python -m berthcore publish packages/<id>`
+5. 发布 `core/.venv/bin/python -m agentourcore publish packages/<id>`
