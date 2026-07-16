@@ -31,7 +31,7 @@ DEFAULT_IGNORES = {
     "__pycache__", ".DS_Store",
 }
 DEFAULT_PATTERNS = {"*.log", "*.tmp", "*.swp", ".agentour-*.log"}
-PLUGIN_VERSION = "2.6.0"
+PLUGIN_VERSION = "2.6.1"
 LATEST_MANIFEST_URL = "https://raw.githubusercontent.com/Onesyn-ai/agentour-claudecode-plugin/master/plugin.json"
 
 
