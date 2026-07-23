@@ -21,7 +21,7 @@ Start a new Claude Code session, then run:
 
 The Plugin strictly asks one question or one choice per turn:
 
-1. Choose **本地服** (`http://127.0.0.1:8600`) or **比赛服** (`https://agentour.ai`).
+1. Choose **测试服** (`https://test.agentour.ai`) or **正式服** (`https://agentour.ai`).
 2. Enter a `at_` developer token; it is validated with `GET /v1/dev/me` and never written to files.
 3. The Plugin fetches enabled models from `GET /v1/models`.
 4. Choose existing-Agent reconstruction or new-Agent invention.

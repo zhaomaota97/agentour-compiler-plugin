@@ -30,8 +30,8 @@ from credential_store import delete_token, get_token
 from flight_recorder import read as read_flight, record as record_flight, record_job_sample
 
 PLATFORMS = {
-    "local": {"name": "本地服", "url": "http://127.0.0.1:8600"},
-    "competition": {"name": "比赛服", "url": "https://agentour.ai"},
+    "test": {"name": "测试服", "url": "https://test.agentour.ai"},
+    "production": {"name": "正式服", "url": "https://agentour.ai"},
 }
 DEFAULT_IGNORES = {
     "node_modules", ".output", ".eve", ".workflow-data", ".git",
@@ -383,7 +383,7 @@ def cmd_build_test(args):
         ]])
         for command in commands:
             build_env = {**os.environ, "AGENTOUR_BUILD": "1",
-                         "AGENTOUR_URL": "http://127.0.0.1:8600",
+                         "AGENTOUR_URL": "https://test.agentour.ai",
                          "AGENTOUR_RUNTIME_TOKEN": "build-only-placeholder"}
             result = subprocess.run(command, cwd=work, text=True, capture_output=True,
                                     timeout=args.timeout, env=build_env)
@@ -595,7 +595,7 @@ def cmd_restore_checkpoint(args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--platform", choices=PLATFORMS, default="competition")
+    parser.add_argument("--platform", choices=PLATFORMS, default="production")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("platforms")
     bootstrap = sub.add_parser("bootstrap")

@@ -1,7 +1,7 @@
 ---
 user-invocable: true
 name: agentour-compiler
-description: Fully automatic Agentour Agent compiler. Selects local or competition platform, validates the developer token, discovers models, then invents a new Agent or reconstructs existing Agent projects through strict one-question-per-turn brainstorm and grill-me interviews, fidelity verification, validation, and private/public upload.
+description: Fully automatic Agentour Agent compiler. Selects test or production platform, validates the developer token, discovers models, then invents a new Agent or reconstructs existing Agent projects through strict one-question-per-turn brainstorm and grill-me interviews, fidelity verification, validation, and private/public upload.
 ---
 
 # Agentour Compiler
@@ -46,22 +46,22 @@ Each conversational turn may ask exactly one question or offer exactly one choic
 
 | Choice | Platform | URL |
 |---|---|---|
-| A | 本地服 | `http://127.0.0.1:8600` |
-| B | 比赛服 | `https://agentour.ai` |
+| A | 测试服 | `https://test.agentour.ai` |
+| B | 正式服 | `https://agentour.ai` |
 
 Never ask the user to type or configure a URL.
 
 ## Mandatory dual-state sequence
 
 Persist non-secret progress in `.agentour/compiler-state.json` and `/v1/dev/compiler-tasks`.
-After authentication, reconcile local and remote active tasks by task ID, Agent ID, operation,
-workspace ID, Package hash, revision, and update time. Platform job status overrides stale local
-`running` state. Restore a missing local workspace from the remote Package checkpoint after verifying
+After authentication, reconcile test and remote active tasks by task ID, Agent ID, operation,
+workspace ID, Package hash, revision, and update time. Platform job status overrides stale test
+`running` state. Restore a missing test workspace from the remote Package checkpoint after verifying
 SHA-256. Continue saved Validation, Build, Eval and Publish Job IDs; never resubmit them blindly.
 Upload a clean checkpoint before Package-changing stage transitions and mark terminal tasks completed
 or cancelled. Never persist the token or provider secrets.
 
-Record start, finish and duration for discovery, conversion, environment preparation, local
+Record start, finish and duration for discovery, conversion, environment preparation, test
 validation, platform validation, remote Build, Smoke/Evals, upload and publish. Show the real current
 stage and never label the entire Compiler run as “上传”.
 
@@ -69,21 +69,21 @@ stage and never label the entire Compiler run as “上传”.
 
 The first unresolved message must ask only:
 
-> 请选择发布平台：A. 本地服；B. 比赛服。
+> 请选择发布平台：A. 测试服；B. 正式服。
 
 ### 2. Validate developer token
 
 First inspect the selected platform's saved credential:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/credential_store.py" status <local|competition>
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/credential_store.py" status <test|production>
 ```
 
 If a token is stored, validate it silently and do not ask the user. Ask for a token only when none is stored or the platform explicitly returns 401/403. Validate a replacement and store it with `credential_store.py set <platform>`. The script automatically chooses the operating system credential backend.
 
 ```bash
 AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> verify-token
+  --platform <test|production> verify-token
 ```
 
 Use `GET /v1/dev/me`. If invalid, ask only for a corrected token after the user checks the selected platform's console. Never print, place in command arguments, save in the project, commit, or report the token.
@@ -94,9 +94,9 @@ After successful token validation, fetch the compiler contract and models:
 
 ```bash
 AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> contract
+  --platform <test|production> contract
 AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> models
+  --platform <test|production> models
 ```
 
 The `models` command probes every returned model, removes failures from `data`, sorts usable models by platform quality rank, and returns `recommended_model`. Unless the user explicitly names a model, requests a cost ceiling, or says to prioritize economy, always use `recommended_model`: Plugin-authored cost optimization must never silently downgrade Agent quality. Economic tradeoffs belong to the developer. Use `filtered_unavailable` only for diagnostics. Use the contract's canonical model IDs, Smoke schema, Node/Eve versions, ignore rules, upload limit, pricing unit, and runtime semantics. Run `model-probe <model>` once more immediately before generation and never use a model that fails.
@@ -173,7 +173,7 @@ for explicit transient failures, and a useful fallback deliverable. Do not leave
 - Missing required input must call Eve `ask_question` and emit `input_requested`.
 - Check Node/pnpm first. Require Node 24 and never compile Node from source.
 - Run `pnpm install --lockfile-only`; do not install project `node_modules` just to create a lock.
-- Run local builds in a Linux temp copy or compatible container, then remove the temp directory.
+- Run test builds in a Linux temp copy or compatible container, then remove the temp directory.
 - Record contract version, publish jobs, failed Gates, repairs, and results in `.agentour/compiler-state.json`, never tokens.
 
 ## Validate and repair automatically
@@ -184,7 +184,7 @@ Before visibility or formal upload, every Package must pass:
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" build-test packages/<agent-id>
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" --platform <local|competition> \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" --platform <test|production> \
   validate-package packages/<agent-id>
 ```
 
@@ -208,7 +208,7 @@ For multiple Packages, first ask whether one setting applies to all or should be
 
 Revalidate the token immediately before upload. Present one compact summary of platform, IDs, versions, models, visibility, validation, fidelity, and limitations. If upload was requested, proceed; otherwise ask one final upload confirmation.
 
-Only after that explicit confirmation, run the paid-resource remote Build Gate. Do not run it during brainstorming, grilling, local validation, visibility selection, or while waiting for upload confirmation. A cached Build does not consume a new E2B build quota.
+Only after that explicit confirmation, run the paid-resource remote Build Gate. Do not run it during brainstorming, grilling, test validation, visibility selection, or while waiting for upload confirmation. A cached Build does not consume a new E2B build quota.
 
 Immediately before Build, run `build-preflight` to verify E2B service configuration, Runtime Profile
 template, active capacity, hourly/daily quota, Node and Eve contract. If unavailable, preserve the task
@@ -216,9 +216,9 @@ and Package checkpoint rather than starting a doomed Build.
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> build-preflight
+  --platform <test|production> build-preflight
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> remote-build packages/<agent-id>
+  --platform <test|production> remote-build packages/<agent-id>
 ```
 
 Read the structured `gates` result. Repair deterministic failures narrowly and rerun only after Package content changes. Do not blindly retry unchanged content; the client may retry one transient platform/model failure internally. Publish only after the remote Build reaches `succeeded`.
@@ -227,12 +227,12 @@ If the API returns `429`, report that the active/daily E2B quota is exhausted an
 change the Package hash or loop retries to evade quota. A cached response is a valid Build result
 and consumes no new quota. If the user cancels or the Package is superseded, run
 `cancel-build <job-id>` and confirm the terminal status before starting another paid Build.
-If polling is interrupted or the local command times out, resume that exact paid Job with
+If polling is interrupted or the test command times out, resume that exact paid Job with
 `track-build <job-id>`; never resubmit merely because observation stopped.
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> publish-async packages/<agent-id> \
+  --platform <test|production> publish-async packages/<agent-id> \
   --visibility <private|public>
 ```
 
@@ -248,7 +248,7 @@ latency, polling, Job transitions, Package hashes or unknown environment facts f
 
 ```bash
 AGENTOUR_TOKEN="<token>" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/agentour_api.py" \
-  --platform <local|competition> feedback "<readable-run-report>.md" \
+  --platform <test|production> feedback "<readable-run-report>.md" \
   --plugin-version "2.8.2" --operation <create|reconstruct|update> \
   --agent-id <agent-id> --publish-job <job-id>
 ```
